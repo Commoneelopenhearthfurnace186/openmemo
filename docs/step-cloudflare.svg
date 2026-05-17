@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 540" width="880" height="540" role="img" aria-label="Cloudflare token + account ID">
+  <defs>
+    <linearGradient id="cf-bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fff7ed"/>
+      <stop offset="1" stop-color="#fff1de"/>
+    </linearGradient>
+    <filter id="cf-shadow"><feGaussianBlur in="SourceAlpha" stdDeviation="6"/><feOffset dy="3"/><feComponentTransfer><feFuncA type="linear" slope="0.25"/></feComponentTransfer><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+
+  <rect width="880" height="540" fill="#0a0d12"/>
+
+  <g transform="translate(40,30)">
+    <text font-family="-apple-system,Segoe UI,sans-serif" font-size="22" font-weight="800" fill="#fff">Step 4 — Get Cloudflare API token + Account ID</text>
+    <text y="28" font-family="-apple-system,Segoe UI,sans-serif" font-size="14" fill="#9aa5b1">Sign up at cloudflare.com (free). Then:</text>
+  </g>
+
+  <g transform="translate(40,90)" filter="url(#cf-shadow)">
+    <rect width="800" height="200" rx="14" fill="url(#cf-bg)" stroke="#fed7aa"/>
+    <rect width="800" height="44" rx="14" fill="#f97316"/>
+    <text x="20" y="28" font-family="-apple-system,Segoe UI,sans-serif" font-size="14" font-weight="700" fill="#fff">A. dash.cloudflare.com → My Profile → API Tokens</text>
+
+    <g transform="translate(20,60)">
+      <text font-family="-apple-system,Segoe UI,sans-serif" font-size="13" fill="#451a03">1. Click <tspan font-weight="700">Create Token</tspan>.</text>
+      <text y="20" font-family="-apple-system,Segoe UI,sans-serif" font-size="13" fill="#451a03">2. Choose the template <tspan font-weight="700">Edit Cloudflare Workers</tspan> → <tspan font-weight="700">Use template</tspan>.</text>
+      <text y="40" font-family="-apple-system,Segoe UI,sans-serif" font-size="13" fill="#451a03">3. In <tspan font-weight="700">Account Resources</tspan>, pick your account. Leave the rest as default.</text>
+      <text y="60" font-family="-apple-system,Segoe UI,sans-serif" font-size="13" fill="#451a03">4. Click <tspan font-weight="700">Continue to summary</tspan> → <tspan font-weight="700">Create Token</tspan>.</text>
+      <text y="80" font-family="-apple-system,Segoe UI,sans-serif" font-size="13" fill="#451a03">5. Copy the token (looks like a long random string).</text>
+    </g>
+
+    <g transform="translate(20,160)">
+      <rect width="760" height="28" rx="6" fill="#fff" stroke="#fed7aa"/>
+      <text x="14" y="19" font-family="ui-monospace,Menlo,Consolas,monospace" font-size="12" fill="#9a3412">Xx8aB...example...token...paste-this-as-CLOUDFLARE_API_TOKEN</text>
+    </g>
+  </g>
+
+  <g transform="translate(40,310)" filter="url(#cf-shadow)">
+    <rect width="800" height="200" rx="14" fill="url(#cf-bg)" stroke="#fed7aa"/>
+    <rect width="800" height="44" rx="14" fill="#f97316"/>
+    <text x="20" y="28" font-family="-apple-system,Segoe UI,sans-serif" font-size="14" font-weight="700" fill="#fff">B. dash.cloudflare.com → home → right sidebar</text>
+
+    <g transform="translate(20,60)">
+      <text font-family="-apple-system,Segoe UI,sans-serif" font-size="13" fill="#451a03">Open any page in the dashboard. Look at the right column.</text>
+      <text y="20" font-family="-apple-system,Segoe UI,sans-serif" font-size="13" fill="#451a03">There's a section <tspan font-weight="700">Account ID</tspan> with a copy button.</text>
+      <text y="50" font-family="-apple-system,Segoe UI,sans-serif" font-size="11" fill="#9a3412" font-weight="700">Sample sidebar widget:</text>
+    </g>
+
+    <g transform="translate(20,134)">
+      <rect width="760" height="50" rx="10" fill="#fff" stroke="#fed7aa"/>
+      <text x="14" y="22" font-family="-apple-system,Segoe UI,sans-serif" font-size="11" font-weight="700" fill="#9a3412">Account ID</text>
+      <text x="14" y="40" font-family="ui-monospace,Menlo,Consolas,monospace" font-size="12" fill="#451a03">9573d84dcacfb7724bc708a887be4766  📋</text>
+      <text x="745" y="22" text-anchor="end" font-family="-apple-system,Segoe UI,sans-serif" font-size="11" fill="#f97316" font-weight="700">→ CLOUDFLARE_ACCOUNT_ID</text>
+    </g>
+  </g>
+</svg>

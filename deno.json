@@ -1,0 +1,14 @@
+{
+  "imports": {
+    "rrule": "https://esm.sh/rrule@2.8.1",
+    "fast-check": "https://esm.sh/fast-check@3",
+    "date-fns-tz": "npm:date-fns-tz@^3",
+    "@supabase/supabase-js": "npm:@supabase/supabase-js@^2"
+  },
+  "compilerOptions": {
+    "lib": ["deno.window", "deno.ns"]
+  },
+  "tasks": {
+    "test": "deno test -A"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "imports": {
+    "@supabase/supabase-js": "npm:@supabase/supabase-js@2",
+    "rrule": "https://esm.sh/rrule@2.8.1",
+    "date-fns-tz": "npm:date-fns-tz@3",
+    "fast-check": "https://esm.sh/fast-check@3"
+  }
+}

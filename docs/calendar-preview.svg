@@ -1,0 +1,136 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 700" width="1200" height="700" role="img" aria-label="OpenMemo web calendar preview">
+  <defs>
+    <linearGradient id="cal-bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0a0d12"/>
+      <stop offset="1" stop-color="#0f1320"/>
+    </linearGradient>
+    <filter id="cal-shadow"><feGaussianBlur in="SourceAlpha" stdDeviation="12"/><feOffset dy="6"/><feComponentTransfer><feFuncA type="linear" slope="0.4"/></feComponentTransfer><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+
+  <rect width="1200" height="700" fill="url(#cal-bg)"/>
+
+  <g transform="translate(60,40)" filter="url(#cal-shadow)">
+    <rect width="1080" height="620" rx="14" fill="#18181b" stroke="#27272a"/>
+
+    <rect width="1080" height="56" rx="14" fill="#1f1f24"/>
+    <circle cx="28" cy="28" r="6" fill="#ef4444"/>
+    <circle cx="48" cy="28" r="6" fill="#fbbf24"/>
+    <circle cx="68" cy="28" r="6" fill="#22c55e"/>
+    <text x="540" y="33" text-anchor="middle" font-family="-apple-system,Segoe UI,sans-serif" font-size="13" fill="#a1a1aa">cal-yourname.pages.dev</text>
+
+    <g transform="translate(0,68)">
+      <text x="24" y="22" font-family="-apple-system,Segoe UI,sans-serif" font-size="20" font-weight="700" fill="#fff">My <tspan fill="#a78bfa">Calendar</tspan></text>
+      <text x="180" y="22" font-family="-apple-system,Segoe UI,sans-serif" font-size="13" fill="#a1a1aa">Sunday, May 17 · 14:08</text>
+
+      <g transform="translate(700,0)">
+        <rect width="200" height="32" rx="6" fill="#27272a"/>
+        <rect x="0" y="0" width="50" height="32" rx="6" fill="transparent"/>
+        <rect x="50" y="0" width="50" height="32" rx="0" fill="transparent"/>
+        <rect x="100" y="0" width="50" height="32" rx="0" fill="#a78bfa"/>
+        <rect x="150" y="0" width="50" height="32" rx="0" fill="transparent"/>
+        <text x="25" y="21" text-anchor="middle" font-family="-apple-system,Segoe UI,sans-serif" font-size="12" fill="#a1a1aa">Day</text>
+        <text x="75" y="21" text-anchor="middle" font-family="-apple-system,Segoe UI,sans-serif" font-size="12" fill="#a1a1aa">Week</text>
+        <text x="125" y="21" text-anchor="middle" font-family="-apple-system,Segoe UI,sans-serif" font-size="12" font-weight="700" fill="#fff">Month</text>
+        <text x="175" y="21" text-anchor="middle" font-family="-apple-system,Segoe UI,sans-serif" font-size="12" fill="#a1a1aa">List</text>
+      </g>
+      <g transform="translate(910,0)">
+        <rect width="60" height="32" rx="6" fill="#27272a"/>
+        <text x="30" y="21" text-anchor="middle" font-family="-apple-system,Segoe UI,sans-serif" font-size="12" fill="#a1a1aa">Today</text>
+      </g>
+      <g transform="translate(980,0)">
+        <rect width="32" height="32" rx="6" fill="#27272a"/>
+        <text x="16" y="22" text-anchor="middle" font-family="-apple-system,Segoe UI,sans-serif" font-size="14" fill="#a1a1aa">⚙</text>
+      </g>
+      <g transform="translate(1022,0)">
+        <rect width="32" height="32" rx="6" fill="#27272a"/>
+        <text x="16" y="22" text-anchor="middle" font-family="-apple-system,Segoe UI,sans-serif" font-size="14" fill="#a1a1aa">↻</text>
+      </g>
+    </g>
+
+    <g transform="translate(0,118)">
+      <text x="24" y="14" font-family="-apple-system,Segoe UI,sans-serif" font-size="18" font-weight="700" fill="#fff">May 2026</text>
+      <g font-family="-apple-system,Segoe UI,sans-serif" font-size="11" font-weight="700" fill="#a1a1aa" letter-spacing="1">
+        <text x="100" y="40" text-anchor="middle">MON</text>
+        <text x="244" y="40" text-anchor="middle">TUE</text>
+        <text x="388" y="40" text-anchor="middle">WED</text>
+        <text x="532" y="40" text-anchor="middle">THU</text>
+        <text x="676" y="40" text-anchor="middle">FRI</text>
+        <text x="820" y="40" text-anchor="middle" fill="#a78bfa">SAT</text>
+        <text x="964" y="40" text-anchor="middle" fill="#a78bfa">SUN</text>
+      </g>
+    </g>
+
+    <g transform="translate(28,170)">
+      <g font-family="-apple-system,Segoe UI,sans-serif" font-size="11" fill="#71717a">
+        <g><rect width="144" height="84" rx="0" fill="transparent" stroke="#27272a"/><text x="134" y="16" text-anchor="end">28</text></g>
+        <g transform="translate(144,0)"><rect width="144" height="84" fill="transparent" stroke="#27272a"/><text x="134" y="16" text-anchor="end">29</text></g>
+        <g transform="translate(288,0)"><rect width="144" height="84" fill="transparent" stroke="#27272a"/><text x="134" y="16" text-anchor="end">30</text></g>
+        <g transform="translate(432,0)"><rect width="144" height="84" fill="transparent" stroke="#27272a"/><text x="134" y="16" text-anchor="end" fill="#fff">1</text></g>
+        <g transform="translate(576,0)"><rect width="144" height="84" fill="transparent" stroke="#27272a"/><text x="134" y="16" text-anchor="end" fill="#fff">2</text></g>
+        <g transform="translate(720,0)"><rect width="144" height="84" fill="rgba(167,139,250,0.04)" stroke="#27272a"/><text x="134" y="16" text-anchor="end" fill="#fff">3</text></g>
+        <g transform="translate(864,0)"><rect width="144" height="84" fill="rgba(167,139,250,0.04)" stroke="#27272a"/><text x="134" y="16" text-anchor="end" fill="#fff">4</text></g>
+      </g>
+
+      <g transform="translate(0,84)" font-family="-apple-system,Segoe UI,sans-serif" font-size="11">
+        <g><rect width="144" height="84" fill="transparent" stroke="#27272a"/><text x="134" y="16" text-anchor="end" fill="#fff">5</text></g>
+        <g transform="translate(144,0)">
+          <rect width="144" height="84" fill="transparent" stroke="#27272a"/><text x="134" y="16" text-anchor="end" fill="#fff">6</text>
+          <rect x="6" y="22" width="132" height="20" rx="4" fill="rgba(217,119,6,0.18)"/>
+          <text x="14" y="36" fill="#d97706" font-weight="700">09:00</text>
+          <text x="58" y="36" fill="#fff">gym</text>
+        </g>
+        <g transform="translate(288,0)"><rect width="144" height="84" fill="transparent" stroke="#27272a"/><text x="134" y="16" text-anchor="end" fill="#fff">7</text></g>
+        <g transform="translate(432,0)">
+          <rect width="144" height="84" fill="transparent" stroke="#27272a"/><text x="134" y="16" text-anchor="end" fill="#fff">8</text>
+          <rect x="6" y="22" width="132" height="20" rx="4" fill="rgba(13,148,136,0.22)"/>
+          <text x="14" y="36" fill="#0d9488" font-weight="700">14:00</text>
+          <text x="60" y="36" fill="#fff">dentist</text>
+        </g>
+        <g transform="translate(576,0)"><rect width="144" height="84" fill="transparent" stroke="#27272a"/><text x="134" y="16" text-anchor="end" fill="#fff">9</text></g>
+        <g transform="translate(720,0)"><rect width="144" height="84" fill="rgba(167,139,250,0.04)" stroke="#27272a"/><text x="134" y="16" text-anchor="end" fill="#fff">10</text></g>
+        <g transform="translate(864,0)"><rect width="144" height="84" fill="rgba(167,139,250,0.04)" stroke="#27272a"/><text x="134" y="16" text-anchor="end" fill="#fff">11</text></g>
+      </g>
+
+      <g transform="translate(0,168)" font-family="-apple-system,Segoe UI,sans-serif" font-size="11">
+        <g><rect width="144" height="84" fill="transparent" stroke="#27272a"/><text x="134" y="16" text-anchor="end" fill="#fff">12</text></g>
+        <g transform="translate(144,0)">
+          <rect width="144" height="84" fill="transparent" stroke="#27272a"/><text x="134" y="16" text-anchor="end" fill="#fff">13</text>
+          <rect x="6" y="22" width="132" height="20" rx="4" fill="rgba(217,119,6,0.18)"/>
+          <text x="14" y="36" fill="#d97706" font-weight="700">09:00</text>
+          <text x="58" y="36" fill="#fff">gym</text>
+        </g>
+        <g transform="translate(288,0)"><rect width="144" height="84" fill="transparent" stroke="#27272a"/><text x="134" y="16" text-anchor="end" fill="#fff">14</text></g>
+        <g transform="translate(432,0)"><rect width="144" height="84" fill="transparent" stroke="#27272a"/><text x="134" y="16" text-anchor="end" fill="#fff">15</text></g>
+        <g transform="translate(576,0)"><rect width="144" height="84" fill="transparent" stroke="#27272a"/><text x="134" y="16" text-anchor="end" fill="#fff">16</text></g>
+        <g transform="translate(720,0)">
+          <rect width="144" height="84" fill="rgba(167,139,250,0.16)" stroke="#27272a"/>
+          <circle cx="130" cy="14" r="11" fill="#a78bfa"/>
+          <text x="130" y="18" text-anchor="middle" fill="#fff" font-weight="700">17</text>
+          <rect x="6" y="32" width="132" height="20" rx="4" fill="rgba(217,119,6,0.18)"/>
+          <text x="14" y="46" fill="#d97706" font-weight="700">11:00</text>
+          <text x="60" y="46" fill="#fff">checkup</text>
+          <rect x="6" y="56" width="132" height="20" rx="4" fill="rgba(236,72,153,0.20)"/>
+          <text x="14" y="70" fill="#ec4899" font-weight="700">12:30</text>
+          <text x="60" y="70" fill="#fff">brief</text>
+        </g>
+        <g transform="translate(864,0)">
+          <rect width="144" height="84" fill="rgba(167,139,250,0.04)" stroke="#27272a"/>
+          <text x="134" y="16" text-anchor="end" fill="#fff">18</text>
+          <rect x="6" y="22" width="132" height="20" rx="4" fill="rgba(217,119,6,0.18)"/>
+          <text x="14" y="36" fill="#d97706" font-weight="700">10:00</text>
+          <text x="58" y="36" fill="#fff">grandma</text>
+        </g>
+      </g>
+
+      <g transform="translate(0,252)" font-family="-apple-system,Segoe UI,sans-serif" font-size="11">
+        <g><rect width="144" height="84" fill="transparent" stroke="#27272a"/><text x="134" y="16" text-anchor="end" fill="#fff">19</text></g>
+        <g transform="translate(144,0)"><rect width="144" height="84" fill="transparent" stroke="#27272a"/><text x="134" y="16" text-anchor="end" fill="#fff">20</text></g>
+        <g transform="translate(288,0)"><rect width="144" height="84" fill="transparent" stroke="#27272a"/><text x="134" y="16" text-anchor="end" fill="#fff">21</text></g>
+        <g transform="translate(432,0)"><rect width="144" height="84" fill="transparent" stroke="#27272a"/><text x="134" y="16" text-anchor="end" fill="#fff">22</text></g>
+        <g transform="translate(576,0)"><rect width="144" height="84" fill="transparent" stroke="#27272a"/><text x="134" y="16" text-anchor="end" fill="#fff">23</text></g>
+        <g transform="translate(720,0)"><rect width="144" height="84" fill="rgba(167,139,250,0.04)" stroke="#27272a"/><text x="134" y="16" text-anchor="end" fill="#fff">24</text></g>
+        <g transform="translate(864,0)"><rect width="144" height="84" fill="rgba(167,139,250,0.04)" stroke="#27272a"/><text x="134" y="16" text-anchor="end" fill="#fff">25</text></g>
+      </g>
+    </g>
+  </g>
+</svg>
