@@ -14,9 +14,9 @@
  * in.
  *
  * Coverage:
- *   - Req 10.4 — pending items render before completed items, ordered
+ *   - Req 10.4: pending items render before completed items, ordered
  *     by `position` ascending.
- *   - Req 10.5 — removing a list cascades to its items (the cascade is
+ *   - Req 10.5: removing a list cascades to its items (the cascade is
  *     enforced by the `ON DELETE CASCADE` FK on `list_item.list_id`,
  *     so the test asserts post-delete row counts).
  */

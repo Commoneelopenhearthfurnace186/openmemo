@@ -93,7 +93,7 @@ if supabase db query --linked --agent=no -f "$SQL_FILE" >/dev/null 2>&1; then
   rm -f "$SQL_FILE"
 else
   red "    Could not run SQL via the CLI."
-  red "    THIS STEP IS REQUIRED — without it, cron jobs cannot deliver reminders."
+  red "    THIS STEP IS REQUIRED. Without it, cron jobs cannot deliver reminders."
   yellow "    Open the Supabase SQL editor (Database -> SQL Editor) and paste this once:"
   echo
   cat "$SQL_FILE"

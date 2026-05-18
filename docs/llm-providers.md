@@ -13,7 +13,7 @@ provider that exposes both works. Swap the four `LLM_*` lines in
 | Mistral | `https://api.mistral.ai` | `mistral-large-latest` | `mistral-embed` | `1024` | free trial |
 | OpenRouter | `https://openrouter.ai/api` | `meta-llama/llama-3.1-70b-instruct` | use a separate embedder | n/a | many free models |
 
-Anything else with an OpenAI-style endpoint works too — Anyscale,
+Anything else with an OpenAI-style endpoint works too: Anyscale,
 Fireworks, local Ollama (`http://localhost:11434/v1`).
 
 If `LLM_EMBED_DIMENSIONS` is not 1536, widen the column once before

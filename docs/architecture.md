@@ -77,11 +77,11 @@ reply. The reply gets sent to Telegram.
 Every two hours during the user's local 8-22 window, `pulse` runs
 four detectors:
 
-- **Collisions** — two or more items on the same calendar day.
-- **Birthday windows** — 30, 14, 7, 1 day before a friend's
+- **Collisions**: two or more items on the same calendar day.
+- **Birthday windows**: 30, 14, 7, 1 day before a friend's
   birthday.
-- **Stale habits** — overdue against their cadence.
-- **Idle** — five days without messaging the bot.
+- **Stale habits**: overdue against their cadence.
+- **Idle**: five days without messaging the bot.
 
 Detected nudges are deduplicated by a stable `kind+key` and queued
 in `proactive_nudge`. The next pulse call (`?send=1`) ships the most

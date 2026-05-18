@@ -1,5 +1,5 @@
 ﻿<p align="center">
-  <img src="docs/banner.svg" alt="OpenMemo — your second brain in Telegram" width="100%" />
+  <img src="docs/banner.svg" alt="OpenMemo, your second brain in Telegram" width="100%" />
 </p>
 
 <h1 align="center">OpenMemo</h1>
@@ -42,7 +42,7 @@ If it saves you time, [tip a coffee on Ko-fi](https://ko-fi.com/haerincode).
 
 ```bash
 git clone https://github.com/haerincode/openmemo.git && cd openmemo
-cp .env.example .env && $EDITOR .env   # paste 9 keys, see below
+cp .env.example .env && $EDITOR .env   # paste your keys, see below
 supabase login
 ./scripts/setup.sh
 ```
@@ -55,7 +55,7 @@ If you need the **step-by-step with screenshots**, scroll to
 | | |
 |---|---|
 | 📅 **Reminders** | Recurring or one-off, batched in one message, with pre-alerts. |
-| 🛒 **Lists & shopping** | Add items, mark them bought, delete, list — all by chat. |
+| 🛒 **Lists & shopping** | Add items, mark them bought, delete, list. All by chat. |
 | 📝 **Notes** | Free-form, semantic search. |
 | 🗓 **Web calendar** | Private URL, month/week/day/list views, color picker. |
 | 👥 **Friends** | Birthdays, emails, phones. The bot warns before birthdays. |
@@ -66,7 +66,7 @@ If you need the **step-by-step with screenshots**, scroll to
 | 📂 **Files** | Private bucket, retrieve by name or tag. |
 | 🧠 **Memory** | Picks what's worth remembering and reuses it next turn. |
 | 🚨 **Proactive nudges** | Daily checks for collisions, birthdays, dropped habits. |
-| 📓 **Journal** | Reflections, ideas, goals — searchable later. |
+| 📓 **Journal** | Reflections, ideas, goals. Searchable later. |
 | ✅ **Habits** | Track recurring practices with streaks. |
 | 📧 **Email backup** | Sends any reminder to your inbox on demand. |
 
@@ -98,7 +98,7 @@ LLM) ·
 The whole thing takes about 15 minutes the first time. The
 walkthrough below assumes you've never written code before.
 
-### Step A — Install tools and clone
+### Step A. Install tools and clone
 
 You need [Git](https://git-scm.com),
 [Node 18+](https://nodejs.org),
@@ -142,9 +142,9 @@ supabase login   # opens a browser, one-time
 > plain PowerShell). Right click in the openmemo folder →
 > "Git Bash here", and run `supabase login` and the rest from there.
 
-### Step B — Open `.env` and fill in the keys
+### Step B. Open `.env` and fill in the keys
 
-Open `.env` in any editor. Required (9 values):
+Open `.env` in any editor. Required to run the bot (6 values):
 
 ```
 OWNER_CHAT_ID=
@@ -152,8 +152,13 @@ TELEGRAM_BOT_TOKEN=
 TELEGRAM_WEBHOOK_SECRET=
 LLM_API_KEY=
 SUPABASE_URL=
-SUPABASE_ANON_KEY=
 SUPABASE_SERVICE_ROLE_KEY=
+```
+
+Required only if you want the web calendar deployed (3 more):
+
+```
+SUPABASE_ANON_KEY=
 CLOUDFLARE_API_TOKEN=
 CLOUDFLARE_ACCOUNT_ID=
 ```
@@ -184,7 +189,7 @@ Start. Send `/newbot` and follow the prompts. Copy the long token.
 #### 2. Your Telegram chat ID → `OWNER_CHAT_ID`
 
 In Telegram, search [`@userinfobot`](https://t.me/userinfobot),
-press Start. It replies with your ID — a 9-10 digit number.
+press Start. It replies with your ID, a 9-10 digit number.
 
 <img src="docs/step-userinfobot.svg" alt="userinfobot walkthrough" width="100%"/>
 
@@ -231,7 +236,7 @@ sign up at [resend.com](https://resend.com), create an API key, add
 `RESEND_API_KEY` and `OWNER_EMAIL` to `.env`. The bot **only** sends
 emails when you explicitly ask it to.
 
-### Step C — Run the installer
+### Step C. Run the installer
 
 ```bash
 ./scripts/setup.sh

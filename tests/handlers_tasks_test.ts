@@ -1,18 +1,18 @@
 /**
  * Tests stubs for `_shared/handlers/tasks.ts` (task 7.3 in `tasks.md`).
  *
- * NOT EXECUTED YET: same rationale as `handlers_lists_test.ts` — the
+ * NOT EXECUTED YET: same rationale as `handlers_lists_test.ts`. The
  * handler module needs a mockable `db` or a live Supabase test
  * instance, neither of which exists yet at this checkpoint.
  *
  * Coverage:
- *   - Req 11.1 — `create_task` persists with sane defaults (status,
+ *   - Req 11.1: `create_task` persists with sane defaults (status,
  *     priority, tags).
- *   - Req 11.2 — auto-reminder is created when `due_at` < 24h, and
+ *   - Req 11.2: auto-reminder is created when `due_at` < 24h, and
  *     NOT created otherwise.
- *   - Req 11.3 — `complete_task` transitions status and stamps
+ *   - Req 11.3: `complete_task` transitions status and stamps
  *     `completed_at`.
- *   - Req 7.5  — completing a linked task transitions any escalation
+ *   - Req 7.5:  completing a linked task transitions any escalation
  *     reminder with `stop_condition.type === "task_completed"` to
  *     `status='completed'` immediately.
  */
