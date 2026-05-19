@@ -86,3 +86,42 @@ four detectors:
 Detected nudges are deduplicated by a stable `kind+key` and queued
 in `proactive_nudge`. The next pulse call (`?send=1`) ships the most
 relevant one to Telegram.
+
+## How timezone handling works
+
+All timestamps in the database are stored as UTC (`timestamptz`).
+The system guarantees correct local-time firing through three layers:
+
+1. **Onboarding.** The first message triggers `onboarding.ts` which
+   asks the user for their current HH:MM. The system infers the IANA
+   zone from the difference against server UTC and persists it in
+   `owner.timezone`.
+
+2. **Write guard (`tz.ts: forceLocalOffset`).** Every datetime that
+   enters the system from the LLM (via `create_reminder`,
+   `update_reminder`, `create_event`, or any handler that calls
+   `parseIso`) passes through `forceLocalOffset`. This function
+   strips whatever offset the LLM attached (Z, +00:00, -05:00, or
+   nothing at all) and re-stamps the wall-clock digits with the
+   real offset for that calendar date in the owner's IANA zone. The
+   result is then parsed by `new Date()` into the correct UTC
+   instant. The LLM cannot produce a wrong offset because the code
+   overwrites it unconditionally.
+
+3. **Read formatting.** Every time a timestamp is shown to the user
+   (in Telegram replies, the calendar UI, or the daily briefing),
+   `formatInTimeZone(timestamp, owner.timezone, ...)` converts from
+   UTC back to the user's wall-clock. The user never sees UTC.
+
+4. **Dispatch.** The pg_cron tick runs `select_due_reminders()` which
+   compares `next_trigger_at <= now()` in pure UTC. Since both sides
+   are UTC, no timezone math happens at dispatch time. If the value
+   was stored correctly (layer 2 guarantees it), it fires at the
+   right local instant.
+
+5. **DST transitions.** `forceLocalOffset` uses `formatInTimeZone`
+   from `date-fns-tz` which queries the full IANA database including
+   DST rules. A reminder set for "09:00 every day" in Santiago will
+   fire at 13:00 UTC in winter and 12:00 UTC in summer, because the
+   RRULE library (`parseRRule` with `tzid`) recomputes the offset
+   for each occurrence.

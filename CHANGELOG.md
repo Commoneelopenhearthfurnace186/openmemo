@@ -4,35 +4,36 @@
 
 ### Fixed
 
-- Reminders saved with the wrong wall-clock when the LLM emitted ISO
-  timestamps in UTC (`...Z` or `+00:00`) for users not in UTC. The
-  agent prompt told the model to mirror the user's offset, but the
-  model still returned UTC about half the time, so a recurring
-  reminder set for 20:00 local in `America/Santiago` ended up firing
-  at 16:00 local. Equivalent off-by-N-hours bug for every IANA zone.
-  The fix lives in `supabase/functions/_shared/tz.ts`:
-  `reinterpretUtcAsLocal` rewrites any `Z`, `+00:00` or `-00:00`
-  suffix to the owner's IANA offset (DST-aware via `formatInTimeZone`)
-  before the row is inserted. Applied to both `create_reminder` and
-  `create_event`.
-- The bot used to respond to "what time is it on your internal clock"
-  with a UTC time it invented. The `current_time` tool already returns
-  local time, so the model was confabulating. Tool description and
-  rules 12 and 14 in the system prompt now state explicitly that the
-  tool already returns local time, the assistant has no separate
-  internal clock, and UTC must never appear in user-facing replies.
-- Appointments with a person or place (medical, dental, government,
-  flights, interviews, school) now require both a `create_reminder`
-  call (so it pings) and a `create_event` call (so it blocks the
-  calendar slot). The old prompt left it ambiguous and the model often
-  picked one.
-- "Morning", "wake up", "noche", "before bed" and similar wording no
-  longer default to 06:00 / 22:00. The agent must read `wake_time` and
-  `bed_time` from `owner_context`, ask once if missing, and persist
-  with `remember_about_user`.
-- Confirmation is one-shot. After the user says yes / sí / dale / ok,
-  the agent executes immediately instead of re-asking the same
-  question.
+- **Timezone: guaranteed correct wall-clock storage.** The LLM can
+  emit ISO timestamps with any offset (Z, +00:00, -05:00, naive
+  without offset). The system now strips whatever offset the model
+  attached and re-stamps the wall-clock with the real IANA offset
+  for that date, computed via `formatInTimeZone`. This makes it
+  impossible for the LLM to cause a wrong firing time. The guard
+  (`forceLocalOffset` in `supabase/functions/_shared/tz.ts`) is
+  applied at every entry point: `exec_create_reminder`,
+  `exec_update_reminder`, `exec_create_event` (agent tool path),
+  plus every `parseIso` call in `handlers/reminders.ts` (static,
+  recurring, dynamic, conditional, escalation, composite children,
+  update) and `handlers/calendar.ts` (create, query with explicit
+  date). Zero unguarded paths remain.
+- Removed auto-created "Buenos dias" daily briefing seed
+  (migration 0010 inserted a hardcoded 08:00 UTC reminder for all
+  users regardless of timezone). Users who want a daily briefing
+  must ask for it explicitly.
+- The bot responded to "what time is it on your internal clock"
+  with a fabricated UTC time. Tool description and prompt rules now
+  state the assistant has no separate clock: it reads the user's
+  clock through `current_time`.
+- Appointments with a person or place now require both
+  `create_reminder` and `create_event`.
+- "Morning" / "noche" wording reads `wake_time` / `bed_time` from
+  `owner_context`. If missing, asks once and persists.
+- Confirmation is one-shot. After "yes" the agent executes.
+- The agent never creates reminders the user did not ask for
+  (rule 15).
+- Before any greeting, the agent calls `current_time` and picks
+  the correct salutation for the local hour (rule 16).
 
 ### Added
 

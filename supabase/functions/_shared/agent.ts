@@ -1,6 +1,6 @@
-import { db, safeLog } from "./supabase.ts";
+﻿import { db, safeLog } from "./supabase.ts";
 import { computeNextTrigger, parseRRule, summarizeRRule } from "./rrule.ts";
-import { reinterpretUtcAsLocal } from "./tz.ts";
+import { forceLocalOffset } from "./tz.ts";
 import { embed } from "./deepseek.ts";
 import { sendEmailWithReason } from "./email.ts";
 import { geocode, getWeather } from "./weather.ts";
@@ -30,18 +30,18 @@ const TOOLS = [
     function: {
       name: "create_reminder",
       description:
-        "Crea un recordatorio. Para uno único usa trigger_at. Para recurrente usa recurrence_rule (RRULE RFC 5545). Para múltiples eventos en un mensaje, llama esta función una vez por cada evento. NO inventes fechas: si el usuario no la dio, NO uses esta tool y pregunta primero.",
+        "Crea un recordatorio. Para uno Ãºnico usa trigger_at. Para recurrente usa recurrence_rule (RRULE RFC 5545). Para mÃºltiples eventos en un mensaje, llama esta funciÃ³n una vez por cada evento. NO inventes fechas: si el usuario no la dio, NO uses esta tool y pregunta primero.",
       parameters: {
         type: "object",
         required: ["title"],
         properties: {
           title: {
             type: "string",
-            description: "Qué hay que hacer. Frase corta.",
+            description: "QuÃ© hay que hacer. Frase corta.",
           },
           trigger_at: {
             type: "string",
-            description: "ISO 8601 con offset. Único o primero de la serie.",
+            description: "ISO 8601 con offset. Ãšnico o primero de la serie.",
           },
           recurrence_rule: {
             type: "string",
@@ -103,14 +103,14 @@ const TOOLS = [
     function: {
       name: "delete_reminders",
       description:
-        "Borra (cancela) recordatorios por id, o todos los abiertos si pasas all=true. Para borrado selectivo, primero llama list_reminders y pasa los ids. Reversible vía status='cancelled'.",
+        "Borra (cancela) recordatorios por id, o todos los abiertos si pasas all=true. Para borrado selectivo, primero llama list_reminders y pasa los ids. Reversible vÃ­a status='cancelled'.",
       parameters: {
         type: "object",
         properties: {
           ids: {
             type: "array",
             items: { type: "string" },
-            description: "uuids específicos.",
+            description: "uuids especÃ­ficos.",
           },
           all: {
             type: "boolean",
@@ -152,7 +152,7 @@ const TOOLS = [
     function: {
       name: "add_pre_notifications",
       description:
-        "Añade pre-avisos a un recordatorio existente. lead_times_days en días (ej. [21,3,1] = 3 avisos a 21d, 3d, 1d antes).",
+        "AÃ±ade pre-avisos a un recordatorio existente. lead_times_days en dÃ­as (ej. [21,3,1] = 3 avisos a 21d, 3d, 1d antes).",
       parameters: {
         type: "object",
         required: ["reminder_id", "lead_times_days"],
@@ -221,7 +221,7 @@ const TOOLS = [
     function: {
       name: "create_note",
       description:
-        "Guarda una nota o reflexión en The_Park (memoria de conocimiento).",
+        "Guarda una nota o reflexiÃ³n en The_Park (memoria de conocimiento).",
       parameters: {
         type: "object",
         required: ["content"],
@@ -237,7 +237,7 @@ const TOOLS = [
     type: "function",
     function: {
       name: "search_notes",
-      description: "Busca notas en The_Park por similitud semántica.",
+      description: "Busca notas en The_Park por similitud semÃ¡ntica.",
       parameters: {
         type: "object",
         required: ["query"],
@@ -321,7 +321,7 @@ const TOOLS = [
     function: {
       name: "send_email",
       description:
-        "Envía un correo al email del usuario (configurado en OWNER_EMAIL). Útil cuando pide enviarse algo por correo: un resumen, un recordatorio crítico, un texto largo, un export. NO uses esta tool para pre-avisos automáticos de un recordatorio (eso ya pasa solo).",
+        "EnvÃ­a un correo al email del usuario (configurado en OWNER_EMAIL). Ãštil cuando pide enviarse algo por correo: un resumen, un recordatorio crÃ­tico, un texto largo, un export. NO uses esta tool para pre-avisos automÃ¡ticos de un recordatorio (eso ya pasa solo).",
       parameters: {
         type: "object",
         required: ["subject", "body"],
@@ -333,7 +333,7 @@ const TOOLS = [
           body: {
             type: "string",
             description:
-              "Cuerpo en texto plano. Saltos de línea con \\n. Si quieres formato, usa Markdown sencillo.",
+              "Cuerpo en texto plano. Saltos de lÃ­nea con \\n. Si quieres formato, usa Markdown sencillo.",
           },
         },
       },
@@ -344,7 +344,7 @@ const TOOLS = [
     function: {
       name: "current_time",
       description:
-        "Obtén la hora ACTUAL del usuario en su zona, en este instante. Llama esta tool SIEMPRE que el usuario pregunte qué hora es, qué día es hoy, qué hora marca tu reloj interno, qué hora tienes tú, o necesites la hora exacta presente. La respuesta del tool YA ES la hora local del usuario; jamás la conviertas a UTC ni la presentes en otra zona. NO uses la hora del turno anterior.",
+        "ObtÃ©n la hora ACTUAL del usuario en su zona, en este instante. Llama esta tool SIEMPRE que el usuario pregunte quÃ© hora es, quÃ© dÃ­a es hoy, quÃ© hora marca tu reloj interno, quÃ© hora tienes tÃº, o necesites la hora exacta presente. La respuesta del tool YA ES la hora local del usuario; jamÃ¡s la conviertas a UTC ni la presentes en otra zona. NO uses la hora del turno anterior.",
       parameters: { type: "object", properties: {} },
     },
   },
@@ -509,7 +509,7 @@ const TOOLS = [
     type: "function",
     function: {
       name: "delete_friend",
-      description: "Borra un contacto por id, o por nombre si es inequívoco.",
+      description: "Borra un contacto por id, o por nombre si es inequÃ­voco.",
       parameters: {
         type: "object",
         properties: {
@@ -527,7 +527,7 @@ const TOOLS = [
     function: {
       name: "list_friends",
       description:
-        "Lista contactos. Filtros opcionales: nombre parcial, tag, próximos cumpleaños.",
+        "Lista contactos. Filtros opcionales: nombre parcial, tag, prÃ³ximos cumpleaÃ±os.",
       parameters: {
         type: "object",
         properties: {
@@ -538,7 +538,7 @@ const TOOLS = [
           tag: { type: "string" },
           upcoming_birthdays_days: {
             type: "integer",
-            description: "Solo contactos con cumple en los próximos N días.",
+            description: "Solo contactos con cumple en los prÃ³ximos N dÃ­as.",
           },
           limit: { type: "integer", default: 30 },
         },
@@ -906,7 +906,7 @@ async function exec_create_reminder(
   let triggerAt = typeof args.trigger_at === "string"
     ? args.trigger_at
     : null;
-  if (triggerAt) triggerAt = reinterpretUtcAsLocal(triggerAt, ctx.ownerTimezone);
+  if (triggerAt) triggerAt = forceLocalOffset(triggerAt, ctx.ownerTimezone);
   const rrule = typeof args.recurrence_rule === "string"
     ? args.recurrence_rule
     : null;
@@ -1072,7 +1072,10 @@ async function exec_delete_reminders(args: ToolArgs): Promise<unknown> {
   return { error: "must provide ids, all=true, or contains" };
 }
 
-async function exec_update_reminder(args: ToolArgs): Promise<unknown> {
+async function exec_update_reminder(
+  args: ToolArgs,
+  ctx: ToolCtx,
+): Promise<unknown> {
   const id = String(args.id ?? "");
   if (!id) return { error: "id required" };
   const update: Record<string, unknown> = {
@@ -1080,7 +1083,10 @@ async function exec_update_reminder(args: ToolArgs): Promise<unknown> {
   };
   if (typeof args.title === "string") update.content = args.title;
   if (typeof args.trigger_at === "string") {
-    update.next_trigger_at = args.trigger_at;
+    update.next_trigger_at = forceLocalOffset(
+      args.trigger_at,
+      ctx.ownerTimezone,
+    );
   }
   if (typeof args.recurrence_rule === "string") {
     update.recurrence_rule = args.recurrence_rule;
@@ -1128,9 +1134,9 @@ async function exec_add_pre_notifications(
     const { error } = await db.from("reminder").insert({
       kind: "static",
       status: "scheduled",
-      content: `Faltan ${d} ${d === 1 ? "día" : "días"} para «${
+      content: `Faltan ${d} ${d === 1 ? "dÃ­a" : "dÃ­as"} para Â«${
         t.content ?? ""
-      }»`,
+      }Â»`,
       next_trigger_at: ts.toISOString(),
       parent_reminder_id: t.id,
       timezone: ctx.ownerTimezone,
@@ -1145,12 +1151,12 @@ async function exec_create_event(args: ToolArgs, ctx: ToolCtx): Promise<unknown>
   const title = String(args.title ?? "").trim();
   let startsAt = String(args.starts_at ?? "");
   if (!title || !startsAt) return { error: "title and starts_at required" };
-  startsAt = reinterpretUtcAsLocal(startsAt, ctx.ownerTimezone);
+  startsAt = forceLocalOffset(startsAt, ctx.ownerTimezone);
   const startMs = Date.parse(startsAt);
   if (Number.isNaN(startMs)) return { error: "invalid starts_at" };
   const payload: Record<string, unknown> = { title, starts_at: startsAt };
   if (typeof args.ends_at === "string") {
-    payload.ends_at = reinterpretUtcAsLocal(args.ends_at, ctx.ownerTimezone);
+    payload.ends_at = forceLocalOffset(args.ends_at, ctx.ownerTimezone);
   }
   if (typeof args.location === "string") payload.location = args.location;
   if (typeof args.description === "string") {
@@ -1832,7 +1838,7 @@ const TOOL_IMPL: Record<
   create_reminder: exec_create_reminder,
   list_reminders: (a) => exec_list_reminders(a),
   delete_reminders: (a) => exec_delete_reminders(a),
-  update_reminder: (a) => exec_update_reminder(a),
+  update_reminder: (a, c) => exec_update_reminder(a, c),
   add_pre_notifications: exec_add_pre_notifications,
   create_event: (a, c) => exec_create_event(a, c),
   list_events: (a) => exec_list_events(a),
@@ -2300,9 +2306,11 @@ function buildSystemPrompt(ctx: NlpContext, owner: OwnerRow): string {
     `9d. Never name timezones, countries or cities the user lives in. Never say "your profile", "the system", "according to your data". If asked the time, just answer "It's HH:MM".`,
     `10. If a tool returns an error, explain it naturally and move on. Do not retry the same call.`,
     `11. Pure chit-chat ("hi", "thanks") needs no tools.`,
-    `12. For "what time is it", "what day is today", "qué hora marca tu reloj interno", "qué hora tienes tú", "tu hora", always call current_time and report time_hhmm exactly as returned. The tool already returns local time; never recompute or mention UTC.`,
-    `13. Confirmation is one-shot. If the user said yes / sí / dale / ok / confirmo to a pending action in the previous turn, EXECUTE it now. Do not ask the same confirmation again. If the user said no / cancela, drop it silently.`,
-    `14. Always speak in local clock to the user. Never mention UTC, offsets, timezones, "mi reloj interno está en UTC", "según mi sistema", or "according to my data". You do not have a separate internal clock; you read the user's clock through current_time. If you list times, format them HH:MM in the user's local time only.`,
+    `12. For "what time is it", "what day is today", "quÃ© hora marca tu reloj interno", "quÃ© hora tienes tÃº", "tu hora", always call current_time and report time_hhmm exactly as returned. The tool already returns local time; never recompute or mention UTC.`,
+    `13. Confirmation is one-shot. If the user said yes / sÃ­ / dale / ok / confirmo to a pending action in the previous turn, EXECUTE it now. Do not ask the same confirmation again. If the user said no / cancela, drop it silently.`,
+    `14. Always speak in local clock to the user. Never mention UTC, offsets, timezones, "mi reloj interno estÃ¡ en UTC", "segÃºn mi sistema", or "according to my data". You do not have a separate internal clock; you read the user's clock through current_time. If you list times, format them HH:MM in the user's local time only.`,
+    `15. NEVER create reminders, events, routines or scheduled messages that the user did not explicitly ask for. No automatic "good morning" summaries, no nightly reviews, no "I'll set that up for you". If the user wants a daily briefing, they will say so.`,
+    `16. Before any greeting or time-sensitive statement (buenos dias, buenas noches, good morning), call current_time FIRST and use the hour from time_hhmm to pick the greeting. 00-05 = buenas noches/hola, 06-11 = buenos dias, 12-17 = buenas tardes, 18-23 = buenas noches/buenas tardes.`,
     ``,
     `Date format: ISO 8601 with the user's offset (e.g. 2026-09-09T09:00:00+02:00).`,
   ].join("\n");
@@ -2494,7 +2502,7 @@ export async function runAgent(opts: {
   messages.push({
     role: "system",
     content:
-      "Genera ya una respuesta final en español al usuario, sin llamar más tools.",
+      "Genera ya una respuesta final en espaÃ±ol al usuario, sin llamar mÃ¡s tools.",
   });
   try {
     const final = await callLLM(messages);
@@ -2502,7 +2510,7 @@ export async function runAgent(opts: {
   } catch {
     return {
       reply:
-        "He hecho lo que he podido. Cuéntame si algo no salió como querías.",
+        "He hecho lo que he podido. CuÃ©ntame si algo no saliÃ³ como querÃ­as.",
       toolsUsed,
     };
   }

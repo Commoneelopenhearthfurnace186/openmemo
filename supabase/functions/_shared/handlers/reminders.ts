@@ -1,6 +1,7 @@
 import { db, safeLog } from "../supabase.ts";
 import { computeNextTrigger, parseRRule, summarizeRRule } from "../rrule.ts";
 import { formatInTimeZone } from "date-fns-tz";
+import { forceLocalOffset } from "../tz.ts";
 import type {
   ConditionPredicate,
   EscalationRule,
@@ -94,7 +95,7 @@ export async function createStaticReminder(
   if (!triggerIso) {
     throw new Error("create_reminder (static) requires entities.trigger_at");
   }
-  let triggerAt = parseIso(triggerIso, "trigger_at");
+  let triggerAt = parseIso(triggerIso, "trigger_at", ownerTimezone);
 
   const nowMs = Date.now();
   if (triggerAt.getTime() <= nowMs) {
@@ -282,7 +283,7 @@ export async function createDynamicReminder(
       return `No entendí la recurrencia: ${msg}`;
     }
   } else if (triggerIso) {
-    nextTrigger = parseIso(triggerIso, "trigger_at");
+    nextTrigger = parseIso(triggerIso, "trigger_at", ownerTimezone);
     if (nextTrigger.getTime() <= Date.now()) {
       throw new Error(
         "No puedo crear el recordatorio dinámico: la fecha indicada está en el pasado.",
@@ -342,7 +343,7 @@ export async function createConditionalReminder(
       "create_reminder (conditional) requires entities.trigger_at",
     );
   }
-  const triggerAt = parseIso(triggerIso, "trigger_at");
+  const triggerAt = parseIso(triggerIso, "trigger_at", ownerTimezone);
   if (triggerAt.getTime() <= Date.now()) {
     throw new Error(
       "No puedo crear el recordatorio condicional: la fecha de evaluación está en el pasado.",
@@ -431,7 +432,7 @@ export async function createEscalationReminder(
   } else if (escalationRule.policy === "repeat_after_delay") {
     const triggerIso = envelope.entities.trigger_at?.trim();
     if (triggerIso) {
-      const triggerAt = parseIso(triggerIso, "trigger_at");
+      const triggerAt = parseIso(triggerIso, "trigger_at", ownerTimezone);
       if (triggerAt.getTime() <= Date.now()) {
         throw new Error(
           "No puedo crear el recordatorio escalado: la fecha inicial está en el pasado.",
@@ -545,7 +546,7 @@ async function insertCompositeChild(
           "composite child (static) requires entities.trigger_at",
         );
       }
-      const triggerAt = parseIso(triggerIso, "trigger_at");
+      const triggerAt = parseIso(triggerIso, "trigger_at", ownerTimezone);
       if (triggerAt.getTime() <= Date.now()) {
         throw new Error(
           `composite child (static): trigger_at en el pasado para «${content}»`,
@@ -633,7 +634,7 @@ async function insertCompositeChild(
         nextTrigger = after;
         startAtIso = now.toISOString();
       } else if (triggerIso) {
-        nextTrigger = parseIso(triggerIso, "trigger_at");
+        nextTrigger = parseIso(triggerIso, "trigger_at", ownerTimezone);
         if (nextTrigger.getTime() <= Date.now()) {
           throw new Error(
             "composite child (dynamic): trigger_at en el pasado",
@@ -675,7 +676,7 @@ async function insertCompositeChild(
           "composite child (conditional) requires condition, then_action and trigger_at",
         );
       }
-      const triggerAt = parseIso(triggerIso, "trigger_at");
+      const triggerAt = parseIso(triggerIso, "trigger_at", ownerTimezone);
       if (triggerAt.getTime() <= Date.now()) {
         throw new Error(
           "composite child (conditional): trigger_at en el pasado",
@@ -730,7 +731,7 @@ async function insertCompositeChild(
       } else {
         const triggerIso = e.trigger_at?.trim();
         if (triggerIso) {
-          nextTrigger = parseIso(triggerIso, "trigger_at");
+          nextTrigger = parseIso(triggerIso, "trigger_at", ownerTimezone);
           if (nextTrigger.getTime() <= Date.now()) {
             throw new Error(
               "composite child (escalation): trigger_at en el pasado",
@@ -950,7 +951,7 @@ export async function handleUpdateReminder(
   const newTriggerIso = envelope.entities.trigger_at?.trim();
   let newTrigger: Date | null = null;
   if (newTriggerIso) {
-    newTrigger = parseIso(newTriggerIso, "trigger_at");
+    newTrigger = parseIso(newTriggerIso, "trigger_at", ownerTimezone);
     if (newTrigger.getTime() <= Date.now()) {
       throw new Error(
         "No puedo actualizar el recordatorio: la nueva fecha está en el pasado.",
@@ -1269,8 +1270,9 @@ function formatDateInTz(date: Date, timezone: string): string {
   return `${weekday} ${day} de ${monthName} a las ${hourStr}:${minuteStr}`;
 }
 
-function parseIso(value: string, fieldName: string): Date {
-  const date = new Date(value);
+function parseIso(value: string, fieldName: string, timezone?: string): Date {
+  const normalized = timezone ? forceLocalOffset(value, timezone) : value;
+  const date = new Date(normalized);
   if (Number.isNaN(date.getTime())) {
     throw new Error(`Invalid ISO 8601 value for ${fieldName}: ${value}`);
   }

@@ -1,6 +1,7 @@
 import { db, safeLog } from "../supabase.ts";
 import type { EventRow, IntentEnvelope } from "../types.ts";
 import { formatInTimeZone } from "date-fns-tz";
+import { forceLocalOffset } from "../tz.ts";
 
 export async function handleCalendarCreate(
   envelope: IntentEnvelope,
@@ -15,11 +16,11 @@ export async function handleCalendarCreate(
     throw new Error("calendar_create requires entities.trigger_at (starts_at)");
   }
 
-  const startDate = parseIso(startIso, "trigger_at");
+  const startDate = parseIso(startIso, "trigger_at", ownerTimezone);
   const endIso = envelope.entities.deadline_at?.trim() ?? null;
   let endDate: Date | null = null;
   if (endIso) {
-    endDate = parseIso(endIso, "deadline_at");
+    endDate = parseIso(endIso, "deadline_at", ownerTimezone);
     if (endDate.getTime() <= startDate.getTime()) {
       throw new Error(
         "calendar_create: deadline_at must be strictly after trigger_at",
@@ -224,8 +225,9 @@ function resolveRange(
   };
 }
 
-function parseIso(value: string, fieldName: string): Date {
-  const date = new Date(value);
+function parseIso(value: string, fieldName: string, timezone?: string): Date {
+  const normalized = timezone ? forceLocalOffset(value, timezone) : value;
+  const date = new Date(normalized);
   if (Number.isNaN(date.getTime())) {
     throw new Error(`Invalid ISO 8601 value for ${fieldName}: ${value}`);
   }
